@@ -15,6 +15,6 @@ Inicio
    area <- medida1 * medida2
    valor <- area * 850
    
-   ESCREVA("O valor da casa ficaria em ", valor:2:2 , " reais.")
+   ESCREVA("O valor da casa ficaria em ", valor:6:2 , " reais.")
 
 Fimalgoritmo
