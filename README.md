@@ -27,4 +27,4 @@ O currículo do curso está dividido em disciplinas que serão cursadas ao longo
 - Tópicos Avançados de Programação para Web
 
 
--> Nesse repositório, estarão colocadas algumas atividades práticas que fiz durante o curso. Divido em pasta por disciplina :]
+-> Nesse repositório, estarão colocadas algumas atividades práticas que fiz durante o curso. Dividido em pastas por disciplina :]
