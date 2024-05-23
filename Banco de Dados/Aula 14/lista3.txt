@@ -1,0 +1,122 @@
+-- Dupla: Lívia Braz e Ana Clara
+
+-- 1) Tabela orientação
+CREATE TABLE orientacao (
+	id_orientacao SERIAL PRIMARY KEY,
+	matricula_professor INTEGER,
+	ra_aluno INTEGER,
+	sala VARCHAR(4) DEFAULT '200',
+	quantidade_horas INTEGER,
+	FOREIGN KEY(matricula_professor) REFERENCES professor(matricula),
+	FOREIGN KEY(ra_aluno) REFERENCES aluno(ra)
+);
+
+--2) Insert na tabela aluno
+INSERT INTO aluno (ra, nome, periodo, curso)
+VALUES
+(16373, 'Livia', 1, 'GTI');
+
+--3) Insert orientacao
+INSERT INTO orientacao (matricula_professor, ra_aluno,sala,quantidade_horas)
+VALUES
+(55555, 16373, 305, 80);
+
+--4) Insert Michael Jackson
+INSERT INTO aluno (ra, nome, periodo, curso)
+VALUES
+(16282, 'Michael Jackson', 4, 'Dança');
+
+INSERT INTO orientacao (matricula_professor, ra_aluno,quantidade_horas)
+VALUES
+(11111, 16282, 20);
+
+SELECT sala
+FROM orientacao 
+WHERE ra_aluno = 16282; -- sala 200
+
+--5) Insert tabela aluno
+INSERT INTO aluno
+VALUES
+(12345, 'Zezinho da Silva', 1, 'GTI');
+
+--6) Insert dois professores
+INSERT INTO professor(matricula, cpf, nome, salario, data_contratacao)
+VALUES
+(98765, '98765432198', 'Joãozinho da Silva', 1000.00, '01/01/2024'),
+(56789, '12345678912', 'Maria da Silva', 1500.00, '01/01/2023');
+
+--7) Insert orientacao com Maria
+INSERT INTO orientacao (matricula_professor, ra_aluno)
+VALUES
+(56789, 16282);
+
+--8) Alterar nome da coluna
+ALTER TABLE professor
+RENAME COLUMN nome TO nome_professor;
+
+--9) Criar coluna data_demissao
+ALTER TABLE professor 
+ADD COLUMN data_demissao DATE;
+
+--10) Atualizar data de demissao
+UPDATE professor
+SET data_demissao = '22/05/2024'
+WHERE matricula = 98765
+
+--11) Aumento de salário
+UPDATE professor
+SET salario = salario * 1.10
+WHERE data_demissao IS NULL;
+
+--12) Diminuição quantidade de horas
+UPDATE orientacao 
+SET quantidade_horas = quantidade_horas - 2
+
+--13) Aumento de período curso de direito
+UPDATE aluno
+SET periodo = periodo + 1
+WHERE curso = 'Direito'
+
+--14) Nome dos alunos e salario
+SELECT nome_professor, salario
+FROM professor 
+ORDER BY salario DESC;
+
+--15) Nome dos alunos
+SELECT nome
+FROM aluno
+ORDER BY nome;
+
+--16) Nome dos alunos sem repetir
+SELECT DISTINCT nome
+FROM aluno
+ORDER BY nome;
+
+--17) Alunos GTI 1 periodo
+SELECT nome, curso, periodo
+FROM aluno
+WHERE curso = 'GTI' AND periodo = 1;
+
+--18) Alunos GTI 1 periodo e Direito 10
+SELECT nome, curso, periodo
+FROM aluno
+WHERE (curso = 'GTI' AND periodo = 1) OR (curso = 'Direito' AND periodo = 10);
+
+--19) Professores contratados em 2023
+SELECT nome_professor, data_contratacao 
+FROM professor 
+WHERE data_contratacao BETWEEN '01/01/2023' AND '31/12/2023';
+
+--20) Retorno maior, menor e media dos salarios
+SELECT MAX(salario), MIN(salario), AVG(salario)
+FROM professor
+
+--21) Curso e quantidade de alunos
+SELECT curso, COUNT(ra) AS qntd_alunos
+FROM aluno
+GROUP BY curso;
+
+--22) Matricula do professor e quantas orientacoes ele faz
+SELECT matricula_professor, COUNT(id_orientacao) AS qntd_orientacoes
+FROM orientacao
+GROUP BY matricula_professor;
